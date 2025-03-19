@@ -1,14 +1,26 @@
 ---
 title: "MB5370 Module 04. Workshop 1 - Introduction"
-author: "Ben Cresswell"
+author: "Ann Thomas"
 output: html_document
-date: "2024-03-22"
+date: "2024-03-19"
 ---
+
+#Install knitr
+```{r}
+install.packages("knitr")
+
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Install usethis
+```{r}
+install.packages("usethis")
 
+#library(usethis)
+```
 
 # Install and load tidyverse packages
 ```{r}
