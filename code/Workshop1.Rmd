@@ -7,7 +7,7 @@ date: "2024-03-19"
 
 #Install knitr
 ```{r}
-install.packages("knitr")
+#install.packages("knitr")
 
 ```
 
@@ -17,14 +17,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # Install usethis
 ```{r}
-install.packages("usethis")
+#install.packages("usethis")
 
 #library(usethis)
 ```
 
 # Install and load tidyverse packages
 ```{r}
-## install.packages("tidyverse") # Delete this line once installed
 library("tidyverse")
 ```
 
@@ -43,15 +42,17 @@ summary(mpg)
 ```
 
 
+
+
 # Create first plot
 ```{r}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = disp, y = hwy))
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
 The plot shows a negative relationship between engine size (displ) and fuel efficiency (hwy). In other words, cars with big engines use more fuel. What does this say about fuel efficiency and engine size?
 
-
+The scatter plot shows a negative correlation between engine size (displ) and fuel efficiency (hwy), indicating that as engine size increases, highway fuel efficiency decreases. This suggests that larger engines consume more fuel, making them less efficient than smaller engines.
 
 # Understanding grammar of graphics
 What happens if we just try to run ggplot on its own?
@@ -79,7 +80,7 @@ ggplot(data = mpg) +
 # Change point size by class:
 ```{r}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))# The size of the points are changed here
 ```
 Note the warning!!!
 
@@ -87,7 +88,7 @@ Note the warning!!!
 # Change transparency (alpha) by class
 ```{r}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))#The shading is changed
 ```
 Another warning!!
 Question: When would using alpha (or size be appropriate??)
@@ -95,19 +96,24 @@ Question: When would using alpha (or size be appropriate??)
 # Change point shape by class:
 ```{r}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))#The shapes of the classes are changed
 ```
 
 
 # Make all points blue
 ```{r}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")#The color is changed to all blue
 ```
 
 
 # Troubleshooting 
 
+```{r}
+ggplot(data = mpg) +  
+  geom_point(mapping = aes(x = displ, y = hwy))  ## the + should not be on the next line
+
+```
 
 
 
@@ -146,6 +152,12 @@ ggplot(data = mpg) +
 # Exercise:
 Read ?facet_wrap. What does nrow do? What does ncol do? What other options control the layout of the individual panels? 
 
+nrow: Sets the number of rows in the facet layout.
+ncol: Sets the number of columns in the facet layout.
+Other layout options:
+scales: Controls whether axes are fixed ("fixed", default) or adjusted ("free", "free_x", "free_y").
+strip.position: Changes the position of facet labels ("top", "bottom", "left", "right").
+
 ```{r}
 
 ```
@@ -155,7 +167,7 @@ Read ?facet_wrap. What does nrow do? What does ncol do? What other options contr
 We already used points:
 ```{r}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displx, y = hwy))
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
 
@@ -167,15 +179,16 @@ ggplot(data = mpg) +
   geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
 ### Question: whey don't we use geom_line() here? What would that look like? ###
-
+### Because the data developed here doesnt fit in a straight ine
+#We use geom_smooth() instead of geom_line() because geom_smooth() fits a trend line with a confidence interval, whereas geom_line() simply connects data points in the order they appear, which may not always reveal underlying patterns.
 
 So let’s recap. A geom is an object that your plot uses to represent the data. To change the geom type in your plot, simply change the geom function that you add to your plot template. Sometimes you may want to try a few things out, in which case you could use comments to help you remember what worked and what didn’t. 
 
 ## Using comments (#)
 ```{r}
 ggplot(data = mpg) + 
-  #geom_point(mapping = aes(x = displ, y = hwy)) + # points horrible 
-  geom_smooth(mappings = aes(x = displ, y = hwy)) # try smooth line
+  #geom_point(mapping = aes(x = displ, y = hwy)) + # points horrible #Would create a scatter plot
+  geom_smooth(mapping = aes(x = displ, y = hwy)) # try smooth line
 ```
 
 Question: how does R work out where to plot the line??? Can use the chunk output to inform us. Can also use the help menu.
@@ -206,7 +219,7 @@ ggplot(data = mpg) +
 We already did this one way
 ```{r}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(xx = displ, y = hwy)) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
   geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
 
@@ -239,9 +252,31 @@ Question: what does the "se = FALSE" do?
 # Exercise:
 1.  What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
 2.  Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+# 1. Use geom_line() to connect data points with a line
+```{r}
+ggplot(data = mpg) + 
+  geom_line(mapping = aes(x = displ, y = hwy))
+
+```
+
+#    Use geom_boxplot() to create a boxplot
+```{r}
+ggplot(data = mpg) + 
+  geom_boxplot(mapping = aes(x = class, y = hwy))
+
+```
+
+#    Use geom_histogram() to create a histogram
+```{r}
+ggplot(data = mpg) + 
+  geom_histogram(mapping = aes(x = hwy), bins = 20)
+```
+
+#    Use geom_area() to create an area chart
 
 ```{r}
-
+ggplot(data = mpg) + 
+  geom_area(mapping = aes(x = displ, y = hwy))
 ```
 
 
@@ -255,7 +290,8 @@ ggplot() +
   geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
 ```
-
+# In the first plot, the data and mappings are passed globally to the ggplot() function.
+# In the second plot, the data and mappings are explicitly passed to each individual geom_point() and geom_smooth().
 
 # Transformations and stats
 
@@ -291,8 +327,11 @@ ggplot(data = demo) +
   geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
 ```
 Question: Why did we specify now specify a y axis?
+We did not specify a y-axis in some of the geom_bar() or stat_count() examples because ggplot2 automatically calculates and assigns the y-axis values for bar charts.
+In this case, we specified the y axis because we are using the stat = "identity" argument in geom_bar().
 
 # What if we want to know the proportion rather than the absolute frequency?
+# stat(prop) calculates the proportion 
 ```{r}
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
@@ -325,6 +364,8 @@ ggplot(data = diamonds) +
 ```
 Question: Does anyone notice anything different in the colour scheme of this plot?
 (Hint: It's in the viridis colour palette (colour blind friendly), but why is it different from the colour palette we used earlier?)
+
+
 Check out the difference:
 ```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
