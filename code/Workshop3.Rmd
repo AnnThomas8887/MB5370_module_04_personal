@@ -95,14 +95,15 @@ ggplot(combine_stats, aes(x = Year, y = Mean, color = Taxa)) +
   theme_minimal()
 
 ```
-# Plot Analysis:
-# The graph displays mean catches per year (2001–2025) for Sharks and Turtles.
-# Shark catches are significantly higher than turtle catches throughout the time period.
-# There is a visible increase in shark catches between 2008 and 2010, peaking sharply in 2009.
-# The large standard deviation (error bars) for sharks, especially in 2009, suggests high variability between areas.
-# Turtle catches remain relatively stable and low across the years, with minimal variation.
-# The 2009 peak in shark catches may indicate either increased fishing effort, data reporting differences, or localized shark abundance.
-# Consistently low turtle numbers could suggest either low capture rates or targeted conservation efforts.
+
+```{r}
+ggsave( "../output/marine_species_catch_plot.png",  # Name of the output file
+  width = 10,                                  # Width in inches
+  height = 6,                                  # Height in inches
+  dpi = 300                                    # High resolution (good for print)
+)
+```
+
 
 
 
