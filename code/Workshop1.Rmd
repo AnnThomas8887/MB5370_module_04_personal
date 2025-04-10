@@ -25,8 +25,6 @@ knitr::opts_chunk$set(echo = TRUE)
 # Install and load tidyverse packages
 ```{r}
 library("tidyverse")
-
-
 ```
 
 
@@ -422,5 +420,14 @@ ggplot(data = mpg) +
   #geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
+
+
+
+
+
+
+
+
+
 
 
